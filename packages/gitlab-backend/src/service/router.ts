@@ -43,10 +43,11 @@ export async function createRouter(
     const useOAuth = config.getOptionalBoolean('gitlab.useOAuth');
     const basePath = getBasePath(config) || '';
 
+    const integrationsConfig =
+        config.getOptionalConfigArray('integrations.gitlab') ?? [];
+
     const gitlabIntegrations: GitLabIntegrationConfig[] =
-        readGitLabIntegrationConfigs(
-            config.getConfigArray('integrations.gitlab')
-        );
+        readGitLabIntegrationConfigs(integrationsConfig);
 
     const router = Router();
 
