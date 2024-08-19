@@ -25,9 +25,10 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         const allowedKinds = config.getOptionalStringArray(
             'gitlab.allowedKinds'
         ) || ['Component'];
-        this.gitLabIntegrationsConfig = readGitLabIntegrationConfigs(
-            config.getConfigArray('integrations.gitlab')
-        );
+        const integrationsConfig =
+            config.getOptionalConfigArray('integrations.gitlab') ?? [];
+        this.gitLabIntegrationsConfig =
+            readGitLabIntegrationConfigs(integrationsConfig);
 
         this.allowedKinds = new Set(
             allowedKinds.map((str) => str.toLowerCase())
